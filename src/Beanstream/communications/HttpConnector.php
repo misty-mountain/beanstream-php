@@ -35,25 +35,26 @@ class HttpConnector {
 	 * @return	array	Parsed API response from private request method
 	 *
      */
-	public function processTransaction($http_method, $endpoint, $data) {
+	public function processTransaction($http_method, $endpoint, $data, $proxy = null) {
 		//call internal request function
-		return $this->request($http_method, $endpoint, $data);
+		return $this->request($http_method, $endpoint, $data, $proxy);
 	}
 
 
     /**
      * request() function - Internal function to send a request to an endpoint.
      *
-     * @param	string|null	$http_method HTTP method to use (defaults to GET if $data==null; defaults to PUT if $data!=null)
-     * @param	string $url	Incoming API Endpoint
-	 * @param	array|null	$data Data for POST requests, not needed for GETs
-     * @access	private
-	 * @return	array Parsed API response
-	 *
+     * @param string|null $http_method HTTP method to use (defaults to GET if $data==null; defaults to PUT if $data!=null)
+     * @param string $url Incoming API Endpoint
+     * @param array|null $data Data for POST requests, not needed for GETs
+     * @param null $proxy
+     * @return    array Parsed API response
+     *
      * @throws ApiException
      * @throws ConnectorException
+     * @access    private
      */
-    private function request($http_method = NULL, $url, $data = NULL)
+    private function request($http_method = NULL, $url, $data = NULL, $proxy = null)
     {
     	//check to see if we have curl installed on the server
         if ( ! extension_loaded('curl')) {
@@ -76,6 +77,9 @@ class HttpConnector {
         curl_setopt($req, CURLOPT_SSL_VERIFYPEER, true);
         curl_setopt($req, CURLOPT_TIMEOUT, 60);
 
+        if (!empty($proxy)) {
+            curl_setopt($req, CURLOPT_PROXY, $proxy);
+        }
 		//test ssl3 (remember to set platform to 'ssltest')
 		//should no longer work after 01/01/2015
 		//curl_setopt($req, CURLOPT_SSLVERSION, 3);
