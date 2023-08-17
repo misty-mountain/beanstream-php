@@ -13,15 +13,20 @@ class HttpConnector {
      * @var string $_auth
      */
 	protected $_auth;
+    /**
+     * @var mixed|null
+     */
+    protected $_proxy;
 
     /**
      * Constructor
      *
      * @param string $auth base64 encoded string to assign to the http header
      */
-	function __construct($auth) {
+	function __construct($auth, $proxy = null) {
 		//set auth for this connection only
 		$this->_auth = $auth;
+        $this->_proxy = $proxy;
 	}
 
 
@@ -54,7 +59,7 @@ class HttpConnector {
      * @throws ConnectorException
      * @access    private
      */
-    private function request($http_method = NULL, $url, $data = NULL, $proxy = null)
+    private function request($http_method, $url, $data = NULL)
     {
     	//check to see if we have curl installed on the server
         if ( ! extension_loaded('curl')) {
@@ -77,8 +82,8 @@ class HttpConnector {
         curl_setopt($req, CURLOPT_SSL_VERIFYPEER, true);
         curl_setopt($req, CURLOPT_TIMEOUT, 60);
 
-        if (!empty($proxy)) {
-            curl_setopt($req, CURLOPT_PROXY, $proxy);
+        if (!empty($this->_proxy)) {
+            curl_setopt($req, CURLOPT_PROXY, $this->_proxy);
         }
 		//test ssl3 (remember to set platform to 'ssltest')
 		//should no longer work after 01/01/2015

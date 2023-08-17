@@ -1,41 +1,42 @@
 <?php	namespace Beanstream;
 
 /**
- * Configuration class to handle merchant id, api keys, platform & version 
- *  
+ * Configuration class to handle merchant id, api keys, platform & version
+ *
  * @author Kevin Saliba
  */
 class Configuration {
 
     /**
      * Configuration: API Version
-     * 
+     *
      * @var string $_version
      */
 	protected $_version = 'v1'; //default
 
     /**
      * Configuration: API Platform
-     * 
+     *
      * @var string $_platform
      */
 	protected $_platform = 'api'; //default
 
     /**
      * Configuration: Merchant ID
-     * 
+     *
      * @var string $_merchantId
      */
 	protected $_merchantId;
 
     /**
      * Configuration: API Key
-     * 
+     *
      * @var string $_apiKey
      */
 	protected $_apiKey;
+    protected $_proxy;
 
-	/**
+    /**
 	 * setMerchantId() function
 	 *
 	 * @param string $merchantId
@@ -63,14 +64,14 @@ class Configuration {
 
 	/**
 	 * setApiKey() function
-	 * 
+	 *
 	 * @param string $apiKey
 	 * @return void
 	 */
 	public function setApiKey($apiKey) {
 		$this->_apiKey=$apiKey;
 	}
-	
+
 	/**
 	 * getApiKey() function
 	 *
@@ -82,7 +83,7 @@ class Configuration {
 
 	/**
 	 * setPlatform() function
-	 * 
+	 *
 	 * @param string $platform
 	 * @return void
 	 */
@@ -93,7 +94,7 @@ class Configuration {
 			$this->_platform=$platform;
 		}
 	}
-	
+
 	/**
 	 * getPlatform() function
 	 *
@@ -101,11 +102,11 @@ class Configuration {
 	 */
 	public function getPlatform() {
 		return $this->_platform;
-	}	
-	
+	}
+
 	/**
 	 * setApiVersion() function
-	 * 
+	 *
 	 * @param string $version
 	 * @return void
 	 */
@@ -124,6 +125,16 @@ class Configuration {
 	 */
 	public function getApiVersion() {
 		return $this->_version;
-	}	
-	
+	}
+
+    public function setProxy($proxy)
+    {
+        $this->_proxy = $proxy;
+    }
+
+    public function getProxy()
+    {
+        return $this->_proxy;
+    }
+
 }
