@@ -79,7 +79,9 @@ class HttpConnector {
 
 		//set other curl options
         curl_setopt($req, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($req, CURLOPT_SSL_VERIFYPEER, true);
+        //curl_setopt($req, CURLOPT_SSL_VERIFYPEER, true);
+        // TODO: REMOVE THIS WORKAROUND! ⬇️
+        curl_setopt($req, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($req, CURLOPT_TIMEOUT, 60);
 
         if (!empty($this->_proxy)) {
