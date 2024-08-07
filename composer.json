@@ -1,9 +1,9 @@
 {
-    "name": "raffmartinez/beanstream",
+    "name": "misty-mountain/beanstream",
     "description": "Beanstream PHP API",
     "type": "library",
     "license": "MIT",
-    "version": "v0.0.4",
+    "version": "v0.0.5",
     "authors": [
         {
             "name": "Pavel Kulbakin",
